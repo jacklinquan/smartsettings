@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="Smart Settings" /><meta name="author" content="Quan Lin" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>smartsettings</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="mkapi-common.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> smartsettings
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#use-smartsettings-directly">Use SmartSettings directly</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#subclass-smartsettings">Subclass SmartSettings</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#with-encryption">With encryption</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#json-settings-file">Json settings file</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#encrypted-settings-file">Encrypted settings file</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#settings-update">Settings update</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dictionary-settings">Dictionary settings</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api/">API Documentation</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">smartsettings</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="smart-settings">Smart Settings</h1>
+<p><a href="https://badge.fury.io/py/smartsettings"><img alt="PyPI version" src="https://badge.fury.io/py/smartsettings.svg" /></a>
+<a href="https://pepy.tech/project/smartsettings"><img alt="Downloads" src="https://pepy.tech/badge/smartsettings" /></a></p>
+<p>Easy to use, flexible and versitile settings.
+It can be serialized to json format, and even encrypted.
+The <code>updatable</code> feature makes it suitable for value bindings.</p>
+<h2 id="installation">Installation</h2>
+<p><code>pip install smartsettings</code></p>
+<h2 id="usage">Usage</h2>
+<h3 id="use-smartsettings-directly">Use <code>SmartSettings</code> directly</h3>
+<details open><summary>Code</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">smartsettings</span> <span class="k">as</span> <span class="nn">ss</span>
+
+<span class="c1"># Add attributes on initialization</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">first_value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># Add attribute directly</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">second_value</span> <span class="o">=</span> <span class="mf">3.14</span>
+<span class="c1"># Add attribute with indexing operator</span>
+<span class="n">settings</span><span class="p">[</span><span class="s2">&quot;third_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># Add subsettings</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">fourth_value</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;subsettings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Serialize settings to json string</span>
+<span class="c1"># The `indent` keyword argument is passed to `jsonpickle.encode`</span>
+<span class="n">settings_string</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;settings_string =&quot;</span><span class="p">,</span> <span class="n">settings_string</span><span class="p">)</span>
+
+<span class="c1"># Deserialize settings from json string</span>
+<span class="n">loaded_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">settings_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loaded_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The 2 settings are equal</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loaded_settings</span> <span class="o">==</span> <span class="n">settings</span><span class="p">)</span>
+
+<span class="c1"># Non-existing attribute with indexing operator returns `None`</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;fifth_value&#39;</span><span class="p">]</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Non-existing attribute raises `AttributeError`</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">fifth_value</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">ae</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details open><summary>Output</summary>
+
+<div class="highlight"><pre><span></span><code>settings = {&#39;name&#39;: &#39;settings&#39;, &#39;first_value&#39;: 100, &#39;second_value&#39;: 3.14, &#39;third_value&#39;: True, &#39;fourth_value&#39;: {&#39;name&#39;: &#39;subsettings&#39;, &#39;value&#39;: 200}}
+settings_string = {
+  &quot;py/object&quot;: &quot;smartsettings.smartsettings.SmartSettings&quot;,
+  &quot;name&quot;: &quot;settings&quot;,
+  &quot;first_value&quot;: 100,
+  &quot;second_value&quot;: 3.14,
+  &quot;third_value&quot;: true,
+  &quot;fourth_value&quot;: {
+    &quot;py/object&quot;: &quot;smartsettings.smartsettings.SmartSettings&quot;,
+    &quot;name&quot;: &quot;subsettings&quot;,
+    &quot;value&quot;: 200
+  }
+}
+loaded_settings = {&#39;name&#39;: &#39;settings&#39;, &#39;first_value&#39;: 100, &#39;second_value&#39;: 3.14, &#39;third_value&#39;: True, &#39;fourth_value&#39;: {&#39;name&#39;: &#39;subsettings&#39;, &#39;value&#39;: 200}}
+True
+settings[&#39;fifth_value&#39;] = None
+&#39;SmartSettings&#39; object has no attribute &#39;fifth_value&#39;
+</code></pre></div>
+</details>
+
+<h3 id="subclass-smartsettings">Subclass <code>SmartSettings</code></h3>
+<details><summary>Code</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">smartsettings</span> <span class="k">as</span> <span class="nn">ss</span>
+
+
+<span class="k">class</span> <span class="nc">ChildSettings</span><span class="p">(</span><span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">class</span> <span class="nc">ParentSettings</span><span class="p">(</span><span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">children</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ChildSettings</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
+
+
+<span class="n">parent_settings</span> <span class="o">=</span> <span class="n">ParentSettings</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;parent&quot;</span><span class="p">,</span>
+    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">ChildSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;first child&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+        <span class="n">ChildSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;second child&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span>
+        <span class="n">ChildSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;third child&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parent_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Serialize settings to json string</span>
+<span class="c1"># The `indent` keyword argument is passed to `jsonpickle.encode`</span>
+<span class="n">parent_settings_string</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">parent_settings</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;parent_settings_string =&quot;</span><span class="p">,</span> <span class="n">parent_settings_string</span><span class="p">)</span>
+
+<span class="c1"># Deserialize settings from json string</span>
+<span class="n">loaded_parent_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">parent_settings_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loaded_parent_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The 2 settings are equal</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loaded_parent_settings</span> <span class="o">==</span> <span class="n">parent_settings</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details><summary>Output</summary>
+
+<div class="highlight"><pre><span></span><code>parent_settings = {&#39;name&#39;: &#39;parent&#39;, &#39;children&#39;: [{&#39;name&#39;: &#39;first child&#39;, &#39;value&#39;: 100}, {&#39;name&#39;: &#39;second child&#39;, &#39;value&#39;: 200}, {&#39;name&#39;: &#39;third child&#39;, &#39;value&#39;: 300}]}
+parent_settings_string = {
+  &quot;py/object&quot;: &quot;__main__.ParentSettings&quot;,
+  &quot;name&quot;: &quot;parent&quot;,
+  &quot;children&quot;: [
+    {
+      &quot;py/object&quot;: &quot;__main__.ChildSettings&quot;,
+      &quot;name&quot;: &quot;first child&quot;,
+      &quot;value&quot;: 100
+    },
+    {
+      &quot;py/object&quot;: &quot;__main__.ChildSettings&quot;,
+      &quot;name&quot;: &quot;second child&quot;,
+      &quot;value&quot;: 200
+    },
+    {
+      &quot;py/object&quot;: &quot;__main__.ChildSettings&quot;,
+      &quot;name&quot;: &quot;third child&quot;,
+      &quot;value&quot;: 300
+    }
+  ]
+}
+loaded_parent_settings = {&#39;name&#39;: &#39;parent&#39;, &#39;children&#39;: [{&#39;name&#39;: &#39;first child&#39;, &#39;value&#39;: 100}, {&#39;name&#39;: &#39;second child&#39;, &#39;value&#39;: 200}, {&#39;name&#39;: &#39;third child&#39;, &#39;value&#39;: 300}]}
+True
+</code></pre></div>
+</details>
+
+<h3 id="with-encryption">With encryption</h3>
+<details><summary>Code</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">smartsettings</span> <span class="k">as</span> <span class="nn">ss</span>
+
+<span class="c1"># Add attributes on initialization</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Serialize and encrypt settings to string</span>
+<span class="n">settings_string</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">crypto_key</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;settings_string =&quot;</span><span class="p">,</span> <span class="n">settings_string</span><span class="p">)</span>
+
+<span class="c1"># Decrypt and deserialize settings from string</span>
+<span class="n">loaded_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">settings_string</span><span class="p">,</span> <span class="n">crypto_key</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loaded_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The 2 settings are equal</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loaded_settings</span> <span class="o">==</span> <span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details><summary>Output</summary>
+
+<div class="highlight"><pre><span></span><code>settings = {&#39;name&#39;: &#39;settings&#39;, &#39;value&#39;: 100}
+settings_string = GmllNjgIP9KhgWIWiv8pva6r9vVCFldz3NKv9sbAdy+gpRDU1MuO4Rcs9NoooD/yXudNWWPTbWmjbfIaxRv/VZ6bIy6Gsn/LAZJl6K3PgWHcIP3v6rZWZGMuH9yquTHf
+loaded_settings = {&#39;name&#39;: &#39;settings&#39;, &#39;value&#39;: 100}
+True
+</code></pre></div>
+</details>
+
+<h3 id="json-settings-file">Json settings file</h3>
+<details><summary>Code</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">smartsettings</span> <span class="k">as</span> <span class="nn">ss</span>
+
+<span class="c1"># Settings file path</span>
+<span class="n">JSON_SETTINGS_FILE_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;settings/settings.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Default settings</span>
+<span class="n">default_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;default_settings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Add attributes on initialization</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Serialize settings to json file</span>
+<span class="c1"># The `backup_num` keyword argument controls the number of backup files</span>
+<span class="c1"># When `backup_num=None` (default), the number of backup files is unlimited</span>
+<span class="c1"># When `backup_num=0`, there is no backup file at all</span>
+<span class="c1"># The `indent` keyword argument is passed to `jsonpickle.encode`</span>
+<span class="n">ss</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span>
+    <span class="n">settings</span><span class="p">,</span>
+    <span class="n">JSON_SETTINGS_FILE_PATH</span><span class="p">,</span>
+    <span class="n">backup_num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Deserialize settings from json file</span>
+<span class="c1"># In case the settings file does not exist, the `default_settings` is loaded.</span>
+<span class="n">loaded_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span>
+    <span class="n">JSON_SETTINGS_FILE_PATH</span><span class="p">,</span>
+    <span class="n">default_settings</span><span class="o">=</span><span class="n">default_settings</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loaded_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The 2 settings are equal</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loaded_settings</span> <span class="o">==</span> <span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details><summary>Output</summary>
+
+<div class="highlight"><pre><span></span><code>settings = {&#39;name&#39;: &#39;settings&#39;, &#39;value&#39;: 100}
+loaded_settings = {&#39;name&#39;: &#39;settings&#39;, &#39;value&#39;: 100}
+True
+</code></pre></div>
+</details>
+
+<h3 id="encrypted-settings-file">Encrypted settings file</h3>
+<details><summary>Code</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">smartsettings</span> <span class="k">as</span> <span class="nn">ss</span>
+
+<span class="c1"># Encrypted settings file path</span>
+<span class="n">ENCRYPTED_SETTINGS_FILE_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;settings/settings.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># Default settings</span>
+<span class="n">default_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;default_settings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Add attributes on initialization</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Serialize and encrypt settings to text file</span>
+<span class="c1"># The `backup_num` keyword argument controls the number of backup files</span>
+<span class="c1"># When `backup_num=None` (default), the number of backup files is unlimited</span>
+<span class="c1"># When `backup_num=0`, there is no backup file at all</span>
+<span class="n">ss</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span>
+    <span class="n">settings</span><span class="p">,</span>
+    <span class="n">ENCRYPTED_SETTINGS_FILE_PATH</span><span class="p">,</span>
+    <span class="n">crypto_key</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span><span class="p">,</span>
+    <span class="n">backup_num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Decrypt and deserialize settings from text file</span>
+<span class="c1"># In case the settings file does not exist, the `default_settings` is loaded.</span>
+<span class="n">loaded_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span>
+    <span class="n">ENCRYPTED_SETTINGS_FILE_PATH</span><span class="p">,</span>
+    <span class="n">crypto_key</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span><span class="p">,</span>
+    <span class="n">default_settings</span><span class="o">=</span><span class="n">default_settings</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loaded_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The 2 settings are equal</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loaded_settings</span> <span class="o">==</span> <span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details><summary>Output</summary>
+
+<div class="highlight"><pre><span></span><code>settings = {&#39;name&#39;: &#39;settings&#39;, &#39;value&#39;: 100}
+loaded_settings = {&#39;name&#39;: &#39;settings&#39;, &#39;value&#39;: 100}
+True
+</code></pre></div>
+</details>
+
+<h3 id="settings-update">Settings update</h3>
+<details><summary>Code</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">smartsettings</span> <span class="k">as</span> <span class="nn">ss</span>
+
+<span class="c1"># Settings</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># New settings</span>
+<span class="n">new_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">SmartSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;new_settings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Update `settings` with `new_settings`</span>
+<span class="c1"># `&lt;&lt;` operator has the same effect as `_update_with` method</span>
+<span class="c1"># `settings._update_with(new_settings)`</span>
+<span class="n">settings</span> <span class="o">&lt;&lt;</span> <span class="n">new_settings</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The 2 settings are equal</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">settings</span> <span class="o">==</span> <span class="n">new_settings</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details><summary>Output</summary>
+
+<div class="highlight"><pre><span></span><code>settings = {&#39;name&#39;: &#39;settings&#39;, &#39;value&#39;: 100}
+new_settings = {&#39;name&#39;: &#39;new_settings&#39;, &#39;value&#39;: 200}
+settings = {&#39;name&#39;: &#39;new_settings&#39;, &#39;value&#39;: 200}
+True
+</code></pre></div>
+</details>
+
+<h3 id="dictionary-settings">Dictionary settings</h3>
+<details><summary>Code</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">smartsettings</span> <span class="k">as</span> <span class="nn">ss</span>
+
+<span class="c1"># Dictionary settings</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">first_value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">settings</span><span class="p">[</span><span class="s2">&quot;second_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.14</span>
+<span class="n">settings</span><span class="p">[</span><span class="s2">&quot;third_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># Dictionary subsettings</span>
+<span class="n">settings</span><span class="p">[</span><span class="s2">&quot;fourth_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;subsettings&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Serialize settings to json string</span>
+<span class="c1"># The `indent` keyword argument is passed to `jsonpickle.encode`</span>
+<span class="n">settings_string</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;settings_string =&quot;</span><span class="p">,</span> <span class="n">settings_string</span><span class="p">)</span>
+
+<span class="c1"># Deserialize settings from json string</span>
+<span class="n">loaded_settings</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">settings_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loaded_settings</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The 2 settings are equal</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loaded_settings</span> <span class="o">==</span> <span class="n">settings</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details><summary>Output</summary>
+
+<div class="highlight"><pre><span></span><code>settings = {&#39;name&#39;: &#39;settings&#39;, &#39;first_value&#39;: 100, &#39;second_value&#39;: 3.14, &#39;third_value&#39;: True, &#39;fourth_value&#39;: {&#39;name&#39;: &#39;subsettings&#39;, &#39;value&#39;: 200}}
+settings_string = {
+  &quot;name&quot;: &quot;settings&quot;,
+  &quot;first_value&quot;: 100,
+  &quot;second_value&quot;: 3.14,
+  &quot;third_value&quot;: true,
+  &quot;fourth_value&quot;: {
+    &quot;name&quot;: &quot;subsettings&quot;,
+    &quot;value&quot;: 200
+  }
+}
+loaded_settings = {&#39;name&#39;: &#39;settings&#39;, &#39;first_value&#39;: 100, &#39;second_value&#39;: 3.14, &#39;third_value&#39;: True, &#39;fourth_value&#39;: {&#39;name&#39;: &#39;subsettings&#39;, &#39;value&#39;: 200}}
+True
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="api/" class="btn btn-neutral float-right" title="API Documentation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright &copy; 2024 <a href="https://github.com/jacklinquan">Quan Lin</a>.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/jacklinquan/smartsettings" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+      <span><a href="api/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.0
+Build Date UTC : 2024-07-04 04:04:20.038214+00:00
+-->

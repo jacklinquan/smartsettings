@@ -8,8 +8,6 @@
   [downloads_img]: https://pepy.tech/badge/smartsettings
   [downloads_link]: https://pepy.tech/project/smartsettings
 
-[Documentation](https://jacklinquan.github.io/smartsettings)
-
 Easy to use, flexible and versitile settings.
 It can be serialized to json format, and even encrypted.
 The `updatable` feature makes it suitable for value bindings.
