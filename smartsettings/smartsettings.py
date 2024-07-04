@@ -210,9 +210,6 @@ def to_file(
         crypto_key: The optional encryption key.
         backup_num: The number of backup files to keep.
         kwargs: Other kwargs to `jsonpickle.encode`.
-
-    Returns:
-        A string that represents the settings.
     """
 
     file_path = Path(path)

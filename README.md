@@ -377,3 +377,15 @@ settings_string = {
 loaded_settings = {'name': 'settings', 'first_value': 100, 'second_value': 3.14, 'third_value': True, 'fourth_value': {'name': 'subsettings', 'value': 200}}
 True
 ```
+
+## Test
+
+```shell
+python -m pytest
+```
+
+## Build documentation
+
+```shell
+mkdocs build
+```
