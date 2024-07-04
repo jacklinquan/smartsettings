@@ -16,7 +16,9 @@ The `updatable` feature makes it suitable for value bindings.
 
 ## Installation
 
-`pip install smartsettings`
+```shell
+pip install smartsettings
+```
 
 ## Usage
 
@@ -377,6 +379,7 @@ settings_string = {
 loaded_settings = {'name': 'settings', 'first_value': 100, 'second_value': 3.14, 'third_value': True, 'fourth_value': {'name': 'subsettings', 'value': 200}}
 True
 ```
+</details>
 
 ## Test
 
