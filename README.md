@@ -20,6 +20,8 @@ The `updatable` feature makes it suitable for value bindings.
 
 ### Use `SmartSettings` directly
 
+<details open><summary>Code</summary>
+
 ```python
 import smartsettings as ss
 
@@ -49,10 +51,14 @@ print(loaded_settings == settings)
 print(f"{settings['fifth_value'] = }")
 
 # Non-existing attribute raises `AttributeError`
-print(f"{settings.fifth_value = }")
+try:
+    print(f"{settings.fifth_value = }")
+except AttributeError as ae:
+    print(ae)
 ```
+</details>
 
-**Output:**
+<details open><summary>Output</summary>
 
 ```
 settings = {'name': 'settings', 'first_value': 100, 'second_value': 3.14, 'third_value': True, 'fourth_value': {'name': 'subsettings', 'value': 200}}
@@ -71,12 +77,13 @@ settings_string = {
 loaded_settings = {'name': 'settings', 'first_value': 100, 'second_value': 3.14, 'third_value': True, 'fourth_value': {'name': 'subsettings', 'value': 200}}
 True
 settings['fifth_value'] = None
-Traceback (most recent call last):
-  ...
-AttributeError: 'SmartSettings' object has no attribute 'fifth_value'.
+'SmartSettings' object has no attribute 'fifth_value'
 ```
+</details>
 
 ### Subclass `SmartSettings`
+
+<details><summary>Code</summary>
 
 ```python
 import smartsettings as ss
@@ -116,8 +123,9 @@ print(f"{loaded_parent_settings = }")
 # The 2 settings are equal
 print(loaded_parent_settings == parent_settings)
 ```
+</details>
 
-**Output:**
+<details><summary>Output</summary>
 
 ```
 parent_settings = {'name': 'parent', 'children': [{'name': 'first child', 'value': 100}, {'name': 'second child', 'value': 200}, {'name': 'third child', 'value': 300}]}
@@ -145,8 +153,11 @@ parent_settings_string = {
 loaded_parent_settings = {'name': 'parent', 'children': [{'name': 'first child', 'value': 100}, {'name': 'second child', 'value': 200}, {'name': 'third child', 'value': 300}]}
 True
 ```
+</details>
 
 ### With encryption
+
+<details><summary>Code</summary>
 
 ```python
 import smartsettings as ss
@@ -166,8 +177,9 @@ print(f"{loaded_settings = }")
 # The 2 settings are equal
 print(loaded_settings == settings)
 ```
+</details>
 
-**Output:**
+<details><summary>Output</summary>
 
 ```
 settings = {'name': 'settings', 'value': 100}
@@ -175,8 +187,11 @@ settings_string = GmllNjgIP9KhgWIWiv8pva6r9vVCFldz3NKv9sbAdy+gpRDU1MuO4Rcs9NoooD
 loaded_settings = {'name': 'settings', 'value': 100}
 True
 ```
+</details>
 
 ### Json settings file
+
+<details><summary>Code</summary>
 
 ```python
 from pathlib import Path
@@ -215,16 +230,20 @@ print(f"{loaded_settings = }")
 # The 2 settings are equal
 print(loaded_settings == settings)
 ```
+</details>
 
-**Output:**
+<details><summary>Output</summary>
 
 ```
 settings = {'name': 'settings', 'value': 100}
 loaded_settings = {'name': 'settings', 'value': 100}
 True
 ```
+</details>
 
 ### Encrypted settings file
+
+<details><summary>Code</summary>
 
 ```python
 from pathlib import Path
@@ -263,16 +282,20 @@ print(f"{loaded_settings = }")
 # The 2 settings are equal
 print(loaded_settings == settings)
 ```
+</details>
 
-**Output:**
+<details><summary>Output</summary>
 
 ```
 settings = {'name': 'settings', 'value': 100}
 loaded_settings = {'name': 'settings', 'value': 100}
 True
 ```
+</details>
 
 ### Settings update
+
+<details><summary>Code</summary>
 
 ```python
 import smartsettings as ss
@@ -294,12 +317,61 @@ print(f"{settings = }")
 # The 2 settings are equal
 print(settings == new_settings)
 ```
+</details>
 
-**Output:**
+<details><summary>Output</summary>
 
 ```
 settings = {'name': 'settings', 'value': 100}
 new_settings = {'name': 'new_settings', 'value': 200}
 settings = {'name': 'new_settings', 'value': 200}
+True
+```
+</details>
+
+### Dictionary settings
+
+<details><summary>Code</summary>
+
+```python
+import smartsettings as ss
+
+# Dictionary settings
+settings = dict(name="settings", first_value=100)
+settings["second_value"] = 3.14
+settings["third_value"] = True
+# Dictionary subsettings
+settings["fourth_value"] = dict(name="subsettings", value=200)
+print(f"{settings = }")
+
+# Serialize settings to json string
+# The `indent` keyword argument is passed to `jsonpickle.encode`
+settings_string = ss.to_string(settings, indent=2)
+print("settings_string =", settings_string)
+
+# Deserialize settings from json string
+loaded_settings = ss.from_string(settings_string)
+print(f"{loaded_settings = }")
+
+# The 2 settings are equal
+print(loaded_settings == settings)
+```
+</details>
+
+<details><summary>Output</summary>
+
+```
+settings = {'name': 'settings', 'first_value': 100, 'second_value': 3.14, 'third_value': True, 'fourth_value': {'name': 'subsettings', 'value': 200}}
+settings_string = {
+  "name": "settings",
+  "first_value": 100,
+  "second_value": 3.14,
+  "third_value": true,
+  "fourth_value": {
+    "name": "subsettings",
+    "value": 200
+  }
+}
+loaded_settings = {'name': 'settings', 'first_value': 100, 'second_value': 3.14, 'third_value': True, 'fourth_value': {'name': 'subsettings', 'value': 200}}
 True
 ```

@@ -26,4 +26,7 @@ print(loaded_settings == settings)
 print(f"{settings['fifth_value'] = }")
 
 # Non-existing attribute raises `AttributeError`
-print(f"{settings.fifth_value = }")
+try:
+    print(f"{settings.fifth_value = }")
+except AttributeError as ae:
+    print(ae)

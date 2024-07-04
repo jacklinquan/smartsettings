@@ -109,7 +109,7 @@ def from_string(
     input_string: str,
     crypto_key: str | None = None,
     **kwargs,
-) -> SmartSettings:
+) -> object:
     """Load settings from a string.
 
     Args:
@@ -118,10 +118,7 @@ def from_string(
         kwargs: Other kwargs to `jsonpickle.decode`.
 
     Returns:
-        A `SmartSettings` object.
-
-    Raises:
-        TypeError: The loaded settings is not an instance of `SmartSettings`.
+        A settings object.
     """
 
     if crypto_key is None:
@@ -135,18 +132,15 @@ def from_string(
         decrypted_string = cm.decrypt_msg(cipher).decode()
 
     settings = jsonpickle.decode(decrypted_string, **kwargs)
-    if isinstance(settings, SmartSettings):
-        return settings
-    else:
-        raise TypeError(f"`settings` is not instance of {SmartSettings}.")
+    return settings
 
 
 def from_file(
     path: Path | str,
     crypto_key: str | None = None,
-    default_settings: SmartSettings | None = None,
+    default_settings: object = None,
     **kwargs,
-) -> SmartSettings:
+) -> object:
     """Load settings from a file.
 
     Args:
@@ -156,10 +150,7 @@ def from_file(
         kwargs: Other kwargs to `jsonpickle.decode`.
 
     Returns:
-        A `SmartSettings` object.
-
-    Raises:
-        TypeError: The loaded settings is not an instance of `SmartSettings`.
+        A settings object.
     """
 
     file_path = Path(path)
@@ -171,12 +162,7 @@ def from_file(
         )
         return settings
     else:
-        if default_settings is None:
-            return SmartSettings()
-        elif isinstance(default_settings, SmartSettings):
-            return deepcopy(default_settings)
-        else:
-            raise TypeError(f"`default_settings` is not instance of {SmartSettings}.")
+        return deepcopy(default_settings)
 
 
 def to_string(
@@ -263,7 +249,11 @@ def _delete_backup_files(path: Path | str, backup_num: int | None = None):
         backup_list = [
             item
             for item in sorted(parent.glob(file_path.stem + "*"))
-            if item != file_path
+            if (
+                item.is_file()
+                and item.suffixes == file_path.suffixes
+                and not item.samefile(file_path)
+            )
         ]
         delete_list = backup_list[:-backup_num] if backup_num else backup_list
         for item in delete_list:

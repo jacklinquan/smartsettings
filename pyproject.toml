@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smartsettings"
-version = "0.1.0"
+version = "0.2.0"
 description = "Smart Settings"
 readme = "README.md"
 authors = [{ name = "Quan Lin", email = "jacklinquan@gmail.com" }]
